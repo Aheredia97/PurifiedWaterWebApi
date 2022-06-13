@@ -5,9 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="BLL\Contract\" />
+    <Folder Include="BLL\" />
     <Folder Include="DAL\Context\" />
-    <Folder Include="DAL\Contract\" />
     <Folder Include="Models\" />
   </ItemGroup>
 
