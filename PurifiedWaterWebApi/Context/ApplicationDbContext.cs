@@ -1,8 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
+using PurifiedWaterWebApi.Context.Entities;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace PurifiedWaterWebApi.Context
 {
@@ -12,5 +10,21 @@ namespace PurifiedWaterWebApi.Context
         {
 
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            #region OnModelCreating
+            foreach (var entityType in modelBuilder.Model.GetEntityTypes())
+            {
+                entityType.GetForeignKeys()
+                    .Where(fk => !fk.IsOwnership && fk.DeleteBehavior == DeleteBehavior.Cascade)
+                    .ToList()
+                    .ForEach(fk => fk.DeleteBehavior = DeleteBehavior.Restrict);
+            }
+            #endregion
+        }
+
+        public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<Rol> Roles { get; set; }
     }
 }

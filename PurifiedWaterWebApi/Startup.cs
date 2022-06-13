@@ -11,7 +11,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using PurifiedWaterWebApi.BLL;
+using PurifiedWaterWebApi.BLL.Contract;
 using PurifiedWaterWebApi.Context;
+using PurifiedWaterWebApi.DAL;
+using PurifiedWaterWebApi.DAL.Contract;
 
 namespace PurifiedWaterWebApi
 {
@@ -29,6 +33,9 @@ namespace PurifiedWaterWebApi
         {
             #region Services
             services.AddDbContext<ApplicationDbContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddTransient<IAccountService, AccountService>();
+            services.AddTransient<IAccountRepository, AccountRepository>();
             #endregion
 
             services.AddControllers();
